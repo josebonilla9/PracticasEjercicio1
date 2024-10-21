@@ -12,14 +12,11 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);        
 
-//        SetImageLabelDimension (labelimgDim, "src/images/logoNike.png", "180x100", false);
-        
-//        ArrayList<String> rutas = CrearRuta("src/images/", "logo", "png", 25);
-//
-//        for (String rutaFinal : rutas) {
-//            System.out.println(rutaFinal);
-//        }
-        
+        fieldDimensiones.setVisible(false);
+        botonAceptar.setVisible(false);
+        labelimgDim.setVisible (false);
+        panelRoot.setVisible(false);
+        trueFalse.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,9 +28,16 @@ public class NewJFrame extends javax.swing.JFrame {
         labelimgDim = new javax.swing.JLabel();
         boton1 = new javax.swing.JRadioButton();
         boton2 = new javax.swing.JRadioButton();
+        boton3 = new javax.swing.JRadioButton();
         trueFalse = new javax.swing.JToggleButton();
         fieldDimensiones = new javax.swing.JTextField();
         botonAceptar = new javax.swing.JLabel();
+        panelRoot = new javax.swing.JPanel();
+        fieldRoot = new javax.swing.JTextField();
+        fieldNombre = new javax.swing.JTextField();
+        fieldCantidad = new javax.swing.JTextField();
+        fieldTipoDeArchivo = new javax.swing.JTextField();
+        botonAceptarRoot = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,7 +46,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
         labelimgDim.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         labelimgDim.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelimgDim.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(labelimgDim, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 910, 510));
 
         grupoDeBotones.add(boton1);
@@ -65,6 +68,16 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         jPanel1.add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
 
+        grupoDeBotones.add(boton3);
+        boton3.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        boton3.setText("rootMessage");
+        boton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, -1, -1));
+
         trueFalse.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         trueFalse.setText("False");
         trueFalse.addActionListener(new java.awt.event.ActionListener() {
@@ -75,13 +88,13 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel1.add(trueFalse, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, -1, -1));
 
         fieldDimensiones.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
-        fieldDimensiones.setText("Dimensiones");
+        fieldDimensiones.setText("Dimensiones. Ej:120x100");
         fieldDimensiones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fieldDimensionesMouseClicked(evt);
             }
         });
-        jPanel1.add(fieldDimensiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 110, 30));
+        jPanel1.add(fieldDimensiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 170, 30));
 
         botonAceptar.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         botonAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -93,7 +106,79 @@ public class NewJFrame extends javax.swing.JFrame {
                 botonAceptarMouseClicked(evt);
             }
         });
-        jPanel1.add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, 70, 30));
+        jPanel1.add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 80, 70, 30));
+
+        fieldRoot.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        fieldRoot.setText("Root");
+        fieldRoot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldRootMouseClicked(evt);
+            }
+        });
+
+        fieldNombre.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        fieldNombre.setText("Nombre");
+        fieldNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldNombreMouseClicked(evt);
+            }
+        });
+
+        fieldCantidad.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        fieldCantidad.setText("Cantidad");
+        fieldCantidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldCantidadMouseClicked(evt);
+            }
+        });
+
+        fieldTipoDeArchivo.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        fieldTipoDeArchivo.setText("Tipo de Archivo");
+        fieldTipoDeArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldTipoDeArchivoMouseClicked(evt);
+            }
+        });
+
+        botonAceptarRoot.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        botonAceptarRoot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        botonAceptarRoot.setText("Aceptar");
+        botonAceptarRoot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        botonAceptarRoot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAceptarRoot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonAceptarRootMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelRootLayout = new javax.swing.GroupLayout(panelRoot);
+        panelRoot.setLayout(panelRootLayout);
+        panelRootLayout.setHorizontalGroup(
+            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRootLayout.createSequentialGroup()
+                .addComponent(fieldRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(fieldTipoDeArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(fieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(botonAceptarRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+        panelRootLayout.setVerticalGroup(
+            panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(fieldRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(fieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonAceptarRoot, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldTipoDeArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(panelRoot, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 920, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,13 +188,16 @@ public class NewJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
+        labelimgDim.setVisible (true);
+        panelRoot.setVisible(false);
+        trueFalse.setVisible(true);
         SetImageLabelButton();
     }//GEN-LAST:event_boton1ActionPerformed
 
@@ -123,6 +211,9 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_trueFalseActionPerformed
 
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
+        labelimgDim.setVisible (true);
+        panelRoot.setVisible(false);
+        trueFalse.setVisible(true);
         SetImageLabelDimensionButton();
     }//GEN-LAST:event_boton2ActionPerformed
 
@@ -131,9 +222,46 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldDimensionesMouseClicked
 
     private void botonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarMouseClicked
-        fieldDimensiones.setText("");
         CambiarImagenDimension(fieldDimensiones.getText());
+        fieldDimensiones.setText("");
     }//GEN-LAST:event_botonAceptarMouseClicked
+
+    private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
+        panelRoot.setVisible(true);
+        fieldDimensiones.setVisible(false);
+        botonAceptar.setVisible(false);
+        trueFalse.setVisible(false);
+        labelimgDim.setVisible (false);
+    }//GEN-LAST:event_boton3ActionPerformed
+
+    private void botonAceptarRootMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarRootMouseClicked
+        ArrayList<String> rutas = CrearRuta(fieldRoot.getText(), fieldNombre.getText(), fieldTipoDeArchivo.getText(), Integer.parseInt(fieldCantidad.getText()));
+
+        for (String rutaFinal : rutas) {
+            System.out.println(rutaFinal);
+        }
+        
+        fieldRoot.setText("Root");
+        fieldNombre.setText("Nombre");
+        fieldTipoDeArchivo.setText("Tipo de Archivo");
+        fieldCantidad.setText("Cantidad");
+    }//GEN-LAST:event_botonAceptarRootMouseClicked
+
+    private void fieldRootMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldRootMouseClicked
+        fieldRoot.setText("");
+    }//GEN-LAST:event_fieldRootMouseClicked
+
+    private void fieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldNombreMouseClicked
+        fieldNombre.setText("");
+    }//GEN-LAST:event_fieldNombreMouseClicked
+
+    private void fieldTipoDeArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldTipoDeArchivoMouseClicked
+        fieldTipoDeArchivo.setText("");
+    }//GEN-LAST:event_fieldTipoDeArchivoMouseClicked
+
+    private void fieldCantidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldCantidadMouseClicked
+        fieldCantidad.setText("");
+    }//GEN-LAST:event_fieldCantidadMouseClicked
 
     public static void main(String args[]) {
         
@@ -177,6 +305,7 @@ public class NewJFrame extends javax.swing.JFrame {
             Icon icon = new ImageIcon (image.getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT));
             labelimgDim.setIcon(icon);
         } else {
+            dimension = fieldDimensiones.getText();
             String[] dimensions = dimension.split("x");
 
             int width = Integer.parseInt(dimensions[0].trim());
@@ -235,11 +364,18 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton boton1;
     private javax.swing.JRadioButton boton2;
+    private javax.swing.JRadioButton boton3;
     private javax.swing.JLabel botonAceptar;
+    private javax.swing.JLabel botonAceptarRoot;
+    private javax.swing.JTextField fieldCantidad;
     private javax.swing.JTextField fieldDimensiones;
+    private javax.swing.JTextField fieldNombre;
+    private javax.swing.JTextField fieldRoot;
+    private javax.swing.JTextField fieldTipoDeArchivo;
     private javax.swing.ButtonGroup grupoDeBotones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelimgDim;
+    private javax.swing.JPanel panelRoot;
     private javax.swing.JToggleButton trueFalse;
     // End of variables declaration//GEN-END:variables
 }
