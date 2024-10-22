@@ -1,17 +1,16 @@
 package PaquetePrueba;
 
-import java.awt.Image;
+import java.awt.Dimension;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class NewJFrame extends javax.swing.JFrame {
     
+    String root = "src/images/logoAmazon.jpg";
+    
     public NewJFrame() {
         initComponents();
-        this.setLocationRelativeTo(this);        
-
+        this.setLocationRelativeTo(this);
+        
         fieldDimensiones.setVisible(false);
         botonAceptar.setVisible(false);
         labelimgDim.setVisible (false);
@@ -46,7 +45,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         labelimgDim.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         labelimgDim.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(labelimgDim, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 910, 510));
+        jPanel1.add(labelimgDim, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 490, 470));
 
         grupoDeBotones.add(boton1);
         boton1.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
@@ -80,6 +79,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         trueFalse.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         trueFalse.setText("False");
+        trueFalse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                trueFalseMouseClicked(evt);
+            }
+        });
         trueFalse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 trueFalseActionPerformed(evt);
@@ -107,6 +111,8 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 80, 70, 30));
+
+        panelRoot.setBackground(new java.awt.Color(255, 255, 255));
 
         fieldRoot.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
         fieldRoot.setText("Root");
@@ -202,12 +208,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_boton1ActionPerformed
 
     private void trueFalseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trueFalseActionPerformed
-        CambiarImagen();
-        if (trueFalse.isSelected()) {
-            trueFalse.setText("True");
-        } else {
-            trueFalse.setText("False");
-        }
+        
     }//GEN-LAST:event_trueFalseActionPerformed
 
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
@@ -220,12 +221,20 @@ public class NewJFrame extends javax.swing.JFrame {
     private void fieldDimensionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldDimensionesMouseClicked
         fieldDimensiones.setText("");
     }//GEN-LAST:event_fieldDimensionesMouseClicked
-
+    
     private void botonAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarMouseClicked
-        CambiarImagenDimension(fieldDimensiones.getText());
-        fieldDimensiones.setText("");
+        String dimensiones = fieldDimensiones.getText();
+        String[] partes = dimensiones.split("x");
+        int entradaWidth = Integer.parseInt(partes[0].trim());
+        int entradaHeight = Integer.parseInt(partes[1].trim());
+        
+        Dimension nuevaDimension = new Dimension(entradaWidth, entradaHeight);
+        
+        CambiarImagenDimension(nuevaDimension);
     }//GEN-LAST:event_botonAceptarMouseClicked
 
+    //Radio Button Tercera Elección
+    
     private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
         panelRoot.setVisible(true);
         fieldDimensiones.setVisible(false);
@@ -234,8 +243,10 @@ public class NewJFrame extends javax.swing.JFrame {
         labelimgDim.setVisible (false);
     }//GEN-LAST:event_boton3ActionPerformed
 
+    //Botones para Root Message
+    
     private void botonAceptarRootMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAceptarRootMouseClicked
-        ArrayList<String> rutas = CrearRuta(fieldRoot.getText(), fieldNombre.getText(), fieldTipoDeArchivo.getText(), Integer.parseInt(fieldCantidad.getText()));
+        ArrayList<String> rutas = Utilidades.CrearRuta(fieldRoot.getText(), fieldNombre.getText(), fieldTipoDeArchivo.getText(), Integer.parseInt(fieldCantidad.getText()));
 
         for (String rutaFinal : rutas) {
             System.out.println(rutaFinal);
@@ -263,6 +274,16 @@ public class NewJFrame extends javax.swing.JFrame {
         fieldCantidad.setText("");
     }//GEN-LAST:event_fieldCantidadMouseClicked
 
+    private void trueFalseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trueFalseMouseClicked
+        if (trueFalse.isSelected()) {
+            trueFalse.setText("True");
+            Utilidades.SetImageLabel(labelimgDim, root, true);
+        } else {
+            trueFalse.setText("False");
+            Utilidades.SetImageLabel(labelimgDim, root, false);
+        }
+    }//GEN-LAST:event_trueFalseMouseClicked
+
     public static void main(String args[]) {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -271,80 +292,21 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void SetImageLabel (JLabel labelName, String root, boolean keepProportions){
-        ImageIcon image = new ImageIcon(root);
-        
-        if (keepProportions) {
-            int imgWidth = image.getIconWidth();
-            int imgHeight = image.getIconHeight();
-            
-            labelName.setSize(imgWidth, imgHeight);
-            
-            
-            Icon icon = new ImageIcon (image.getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT));
-            labelimgDim.setIcon(icon);
-        } else {    
-            Icon icon = new ImageIcon (image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
-            labelimgDim.setIcon(icon);
-        }
-        
-        labelName.repaint();
-    }
-    
-    private void SetImageLabelDimension (JLabel labelName, String root, String dimension, boolean keepProportions){
-            ImageIcon image = new ImageIcon(root);
-        
-        if (keepProportions) {
-            int imgWidth = image.getIconWidth();
-            int imgHeight = image.getIconHeight();
-            
-            labelName.setSize(imgWidth, imgHeight);
-            
-            
-            Icon icon = new ImageIcon (image.getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT));
-            labelimgDim.setIcon(icon);
-        } else {
-            dimension = fieldDimensiones.getText();
-            String[] dimensions = dimension.split("x");
 
-            int width = Integer.parseInt(dimensions[0].trim());
-            int height = Integer.parseInt(dimensions[1].trim());
-
-            labelName.setSize(width, height);
-
-            Icon icon = new ImageIcon (image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
-            labelimgDim.setIcon(icon);
-        }
-        this.repaint();
-    }
-
-    public static ArrayList<String> CrearRuta(String root, String nombre, String tipoArchivo, int dimension) {
-        ArrayList<String> rootFinal = new ArrayList<>();
-
-        for (int i = 1; i <= dimension; i++) {
-            String rootSeparado = root + nombre + i + "." + tipoArchivo;
-            rootFinal.add(rootSeparado);
-        }
-
-        return rootFinal;
-    }
-    
     private void SetImageLabelButton() {
         if (boton1.isSelected()) {
             fieldDimensiones.setVisible(false);
             botonAceptar.setVisible(false);
-            CambiarImagen();
         }
     }
     
-    private void CambiarImagen() {
-        if (trueFalse.isSelected()) {
-            SetImageLabel(labelimgDim, "src/images/logoNike.png", true);
-        } else {
-            SetImageLabel(labelimgDim, "src/images/logoNike.png", false);
-        }
-    }
+//    private void CambiarImagen() {
+//        if (trueFalse.getText().equals("true")) {
+//            Utilidades.SetImageLabel(labelimgDim, root, true);
+//        } else {
+//            Utilidades.SetImageLabel(labelimgDim, root, false);
+//        }
+//    }
     
     private void SetImageLabelDimensionButton() {
         if (boton2.isSelected()) {
@@ -353,11 +315,11 @@ public class NewJFrame extends javax.swing.JFrame {
         }
     }
     
-    private void CambiarImagenDimension(String dimensiones) {
-        if (trueFalse.isSelected()) {
-            SetImageLabelDimension (labelimgDim, "src/images/logoNike.png", dimensiones, true);
+    private void CambiarImagenDimension(Dimension dimensiones) {
+        if (trueFalse.getText().equals("true")) {
+            Utilidades.SetImageLabelDimension (labelimgDim, root, dimensiones, true);
         } else {
-            SetImageLabelDimension (labelimgDim, "src/images/logoNike.png", dimensiones, false);
+            Utilidades.SetImageLabelDimension (labelimgDim, root, dimensiones, false);
         }
     }
     
